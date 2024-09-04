@@ -1,9 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Dashboard, { dashboardLoader } from "./pages/Dashboard";
+import Error from "./pages/Error";
 
+// Routes
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <h2>Hi</h2>,
+    element: <Dashboard />,
+    loader: dashboardLoader,
+    errorElement: <Error />,
   },
 ]);
 
