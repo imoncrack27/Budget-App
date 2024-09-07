@@ -1,5 +1,5 @@
 // react imports
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 //rrd imports
 import { Form, useFetcher } from "react-router-dom";
@@ -11,11 +11,13 @@ function AddBudgetForm() {
   const fetcher = useFetcher();
   const isSubmitting = fetcher.state === "submitting";
 
-  const formref = useRef;
+  const formRef = useRef();
+  const focusRef = useRef();
 
   useEffect(() => {
     if (!isSubmitting) {
       formRef.current.reset();
+      focusRef.current.focus();
     }
   }, [isSubmitting]);
 
@@ -31,6 +33,7 @@ function AddBudgetForm() {
             id="newBudget"
             placeholder="e.g., Groceries"
             required
+            ref={focusRef}
           />
         </div>
         <div className="grid-xs">
@@ -46,7 +49,7 @@ function AddBudgetForm() {
           />
         </div>
         <input type="hidden" name="_action" value="createBudget" />
-        <button type="submit" className="btn btn--dark">
+        <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
           <span>Create budget</span>
           <CurrencyDollarIcon width={20} />
         </button>
