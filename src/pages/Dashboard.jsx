@@ -19,14 +19,34 @@ export function dashboardLoader() {
 //action
 export async function dashboardAction({ request }) {
   const data = await request.formData();
-  const formData = Object.fromEntries(data);
-  try {
-    localStorage.setItem("userName", JSON.stringify(formData.userName));
-    return toast.success(`Welcome, ${formData.userName}`);
-  } catch (e) {
-    throw new Error(
-      "There was a problem creating your account. Please try again."
-    );
+  const { _action, ...values } = Object.fromEntries(data);
+
+  //new user submission
+  if (_action === "newUser") {
+    try {
+      localStorage.setItem("userName", JSON.stringify(values.userName));
+      return toast.success(`Welcome, ${values.userName}`);
+    } catch (e) {
+      throw new Error(
+        "There was a problem creating your account. Please try again."
+      );
+    }
+  }
+
+  if (_action === "createBudget") {
+    try {
+      //create new budget
+      // const budgets = JSON.parse(localStorage.getItem("budgets")) || [];
+      // const newBudget = { ...values, id: Date.now() };
+      // budgets.push(newBudget);
+      // localStorage.setItem("budgets", JSON.stringify(budgets));
+
+      return toast.success(`Budget ${values.newBudget} created successfully`);
+    } catch (e) {
+      throw new Error(
+        "There was a problem creating your budget. Please try again."
+      );
+    }
   }
 }
 
