@@ -1,6 +1,6 @@
 // helper functions
 import { useLoaderData } from "react-router-dom";
-import { fetchData } from "../helpers";
+import { createBudget, fetchData } from "../helpers";
 
 //components
 import Intro from "../components/Intro";
@@ -40,7 +40,10 @@ export async function dashboardAction({ request }) {
       // const newBudget = { ...values, id: Date.now() };
       // budgets.push(newBudget);
       // localStorage.setItem("budgets", JSON.stringify(budgets));
-
+      createBudget({
+        name: values.newBudget,
+        amount: values.newBudgetAmount,
+      });
       return toast.success(`Budget ${values.newBudget} created successfully`);
     } catch (e) {
       throw new Error(
