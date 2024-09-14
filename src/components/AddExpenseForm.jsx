@@ -1,12 +1,16 @@
 //react imports
+
 import { useRef } from "react";
 
 //rrd imports
 import { useFetcher } from "react-router-dom";
 
+//library imports
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
+
 const AddExpenseForm = ({ budgets }) => {
   const fetcher = useFetcher();
-
+  const isSubmitting = fetcher.state === "submitting";
   const formRef = useRef();
   const focusRef = useRef();
 
@@ -45,7 +49,7 @@ const AddExpenseForm = ({ budgets }) => {
             />
           </div>
         </div>
-        <div className="grid-xs">
+        <div className="grid-xs" hidden={budgets.length === 1}>
           <label htmlFor="newExpenseBudget">Budget Category</label>
           <select name="newExpenseBudget" id="newExpenseBudget" required>
             {budgets
@@ -59,6 +63,19 @@ const AddExpenseForm = ({ budgets }) => {
               })}
           </select>
         </div>
+        <input type="hidden" name="_action" value="createExpense" />
+        <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <span>Submitting...</span>
+            </>
+          ) : (
+            <>
+              <span>Add Expense</span>
+              <PlusCircleIcon width={20} />
+            </>
+          )}
+        </button>
       </fetcher.Form>
     </div>
   );
