@@ -45,6 +45,20 @@ const AddExpenseForm = ({ budgets }) => {
             />
           </div>
         </div>
+        <div className="grid-xs">
+          <label htmlFor="newExpenseBudget">Budget Category</label>
+          <select name="newExpenseBudget" id="newExpenseBudget" required>
+            {budgets
+              .sort((a, b) => a.createdAt - b.createdAt)
+              .map((budget) => {
+                return (
+                  <option key={budget.id} value={budget.id}>
+                    {budget.name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
       </fetcher.Form>
     </div>
   );
