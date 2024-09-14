@@ -1,6 +1,6 @@
 //react imports
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 //rrd imports
 import { useFetcher } from "react-router-dom";
@@ -13,6 +13,15 @@ const AddExpenseForm = ({ budgets }) => {
   const isSubmitting = fetcher.state === "submitting";
   const formRef = useRef();
   const focusRef = useRef();
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      //clear form
+      formRef.current.reset();
+      //reset focus
+      focusRef.current.focus();
+    }
+  }, [isSubmitting]);
 
   return (
     <div className="form-wrapper">
