@@ -65,6 +65,14 @@ export const calculateSpentByBudget = (budgetId) => {
 
 //FORMATTING
 
+//FOrmatting percentages
+export const formatPercentage = (amt) => {
+  return amt.toLocaleString(undefined, {
+    style: "percent",
+    minimumFractionDigits: 0,
+  });
+};
+
 //Format currency
 export const formatCurrency = (amt) => {
   return amt.toLocaleString(undefined, {
